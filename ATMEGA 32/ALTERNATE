@@ -1,0 +1,27 @@
+/*
+ * File:   ALTERNATE.c
+ * Author: adithyan
+ *
+ * Created on July 17, 2026, 10:57 AM
+ */
+
+
+#define F_CPU 8000000UL
+#include <avr/io.h>
+#include <util/delay.h>
+
+void main(void) 
+{
+    DDRA=0X00;
+    DDRB=0X00;
+    DDRC=0XFF;
+    DDRD=0XFF;
+    while(1)
+    {
+        PORTC=0XAA;
+        _delay_ms(100);
+        PORTC=0X55;
+        _delay_ms(100);
+    }
+    return;
+}
