@@ -1,0 +1,53 @@
+/*
+ * File:   switch.c
+ * Author: adithyan
+ *
+ * Created on July 17, 2026, 10:14 AM
+ */
+
+#define F_CPU 8000000UL
+#include <avr/io.h>
+#include <util/delay.h>
+
+int main(void)
+{
+    DDRC = 0xFF;     // PORTB input
+    DDRD = 0x00;     // PORTC output
+
+    PORTD = 0xFF;    // Pull-up ON for PB0-PB3
+
+    while(1)
+    {
+        
+        if(!(PIND & 0x04))         // PB0 pressed
+        {
+            PORTC = 0xFF;
+            _delay_ms(100);
+            PORTC = 0x00;
+            _delay_ms(100);
+        }
+        else if(!(PIND & 0x08))     // PB1 pressed
+        {
+            PORTC = 0xAA;
+            _delay_ms(100);
+            PORTC = 0x55;
+            _delay_ms(100);
+        }
+        else if(!(PIND & 0x10))     // PB2 pressed
+        {
+            PORTC = 0x01;
+            _delay_ms(100);
+
+            for(int i = 0; i < 7; i++)
+            {
+                PORTC = PORTC << 1;
+                _delay_ms(100);
+            }
+        }
+       
+        else
+        {
+            PORTC = 0x00;
+        }
+    }
+}
