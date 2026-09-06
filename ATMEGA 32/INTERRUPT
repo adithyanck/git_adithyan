@@ -1,0 +1,47 @@
+/*
+ * File:   interrupt.c
+ * Author: adithyan
+ *
+ * Created on July 21, 2026, 9:33 AM
+ */
+
+#define F_CPU 8000000ul
+#include<avr/io.h>
+#include<avr/interrupt.h>
+#include<avr/delay.h>
+
+
+ISR(INT0_vect)
+{
+    PORTC = 0x01;
+    _delay_ms(300);
+    for(int i=0;i<8;i++)
+    {
+        PORTC = PORTC << 1;
+        _delay_ms(300);
+    }
+    cli();
+    
+}
+
+void main()
+{
+    DDRD = 0x00;
+    DDRC = 0xFF;
+    DDRB = 0xFF;
+    
+    MCUCR = 0x03;
+    GICR = 0x40;
+    
+    sei();
+    
+    while(1)
+    {
+        PORTC = 0xFF;
+        _delay_ms(300);
+        PORTC = 0x00;
+        _delay_ms(300);
+    }
+    
+    
+}
