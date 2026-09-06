@@ -1,0 +1,26 @@
+/*
+ * File:   blink.c
+ * Author: adithyan
+ *
+ * Created on June 24, 2026, 9:11 AM
+ */
+
+#define F_CPU 8000000UL
+#include <avr/io.h>
+#include <util/delay.h>
+
+void main(void) 
+{
+    DDRC=0XFF;
+   
+    while(1)
+    {
+    PORTC=0XFF;
+    _delay_ms(100);
+    PORTC=0X00;
+    _delay_ms(100);
+    }
+    
+
+    return;
+}
