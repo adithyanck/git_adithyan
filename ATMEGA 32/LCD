@@ -1,0 +1,67 @@
+/*
+ * File:   LCD.c
+ * Author: adithyan
+ *
+ * Created on July 17, 2026, 10:33 AM
+ */
+#define F_CPU 8000000ul
+
+#include<avr/io.h>
+#include<util/delay.h>
+
+void command(int);
+void data(char);
+void print(char *p);
+
+
+void main()
+{
+    DDRB = 0xFF;
+    DDRD = 0xFF;
+    
+    command(0x01);
+    command(0x38);
+    command(0x0F);
+    command(0x06);
+    command(0x80);
+    
+    while(1)
+    {
+        print("ADITHYAN C K");
+        while(1);
+    }
+        
+}
+
+
+
+void print(char *p)
+{
+    while(*p != 0)
+    {
+        data(*p);
+        p++;
+    }
+}
+
+void command(int a)
+{
+   
+    PORTB = a;
+    PORTD = 0x40;
+    _delay_ms(300);
+    PORTD = 0x00;
+    
+    
+}
+
+void data(char c)
+{
+    
+    
+    
+    PORTB = c;
+    PORTD = 0x60;
+    _delay_ms(300);
+    PORTD = 0x20;
+}
