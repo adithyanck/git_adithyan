@@ -1,0 +1,41 @@
+/*
+ * File:   TIMER.c
+ * Author: adithyan
+ *
+ * Created on July 21, 2026, 9:58 AM
+ */
+
+
+
+#define F_CPU 8000000UL
+#include <util/delay.h>
+#include <avr/io.h>
+
+void timer();
+void main(void) 
+{
+    TCCR0=0X05;
+    DDRC=0X7F;
+    
+    
+     while(1)
+    {
+        PORTC=0X7F;
+        timer(100);
+        PORTC=0X00;
+        timer(100);
+    }
+    
+    return;
+}
+void timer()
+{
+    
+    TCNT0 = 0X00;
+    while((TIFR & 0X01) == 0);  // Wait until Overflow Flag (TOV0) sets
+    TIFR = 0X01;
+    
+    
+    
+   
+}
