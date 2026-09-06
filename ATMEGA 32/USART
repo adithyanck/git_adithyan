@@ -1,0 +1,42 @@
+/*
+ * File:   USART.c
+ * Author: adithyan
+ *
+ * Created on July 21, 2026, 11:00 AM
+ */
+
+/*
+ * File:   USART 1.c
+ * Author: adith
+ *
+ * Created on June 29, 2026, 9:49 AM
+ */
+
+#define F_CPU 8000000UL
+#include <avr/io.h>
+#include <util/delay.h>
+void transmit(char a );
+void print(char *b);
+
+void main(void) 
+{
+   
+    DDRD=0XFF;
+    UCSRA=0X00;
+    UCSRB=0X18;
+    UCSRC=0X86;
+    UBRRL=51;
+    print('A');
+    while(1);
+    return;
+}
+void transmit(char a )
+{
+    UDR=a;
+    while((UCSRA&0X40)==0)
+    {
+        UCSRA=0X40;
+    }
+        
+        
+}
